@@ -28,7 +28,7 @@ Before you can use 'dockup' a local wordpress installation, you need to install 
 3. Start your-new-site.dev:  
   `sh dockup.sh`
 
-That's it!  After that runs you go to http://yournewsite.dev and you'll see the typical Wordpress install screen.
+That's it!  After that runs you go to http://your-new-site.dev and you'll see the typical Wordpress install screen.
 
 # dockdown: Turn the site off
 
