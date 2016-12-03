@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # insert/update hosts entry
-ip_address="127.0.0.1:8000"
+ip_address="127.0.0.1:9000"
 
 host_name=${PWD##*/}.dev
 
@@ -13,7 +13,7 @@ echo "Please enter your password if requested."
 
 if [ ! -z "$matches_in_hosts" ]
 then
-    echo "Removing original dock host entry."
+    echo "Removing original dock host entry: ${host_name} "
     # iterate over the line numbers on which matches were found
     while read -r line_number; do
         # replace the text of each line with the desired host entry

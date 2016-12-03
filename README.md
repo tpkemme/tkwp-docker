@@ -5,6 +5,11 @@ the name of the repo directory (in this case 'tkwp-docker') and maps the project
 appropriately named dev url.  So if you clone this repo into a folder named "tylerisawesome" and set the port in dockup.sh to a unique
 number, you will see a new Wordpress install at "tylerisawesome.com" after running `sh dockup.sh`.
 
+# Prereqs
+
+Before you can use 'dockup' a local wordpress installation, you need to install [Docker](https://www.docker.com/) and 
+[Docker Compose](https://www.docker.com/products/docker-compose).  Not so bad right?
+
 # Docker images included in this environment
 
 -   Wordpress 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # insert/update hosts entry
-ip_address="127.0.0.1:8000"
+ip_address="127.0.0.1:9000"
 
 host_name=${PWD##*/}.dev
 # find existing instances in the host file and save the line numbers
@@ -12,16 +12,26 @@ echo "Please enter your password if requested."
 
 if [ ! -z "$matches_in_hosts" ]
 then
-    echo "Updating host in /etc/hosts: ${host_entry}"
+    echo "Updating host in /etc/hosts: ${host_name}"
     # iterate over the line numbers on which matches were found
     while read -r line_number; do
         # replace the text of each line with the desired host entry
         sudo sed -i '' "${line_number}s/.*/${host_entry} /" /etc/hosts
     done <<< "$matches_in_hosts"
 else
-    echo "Updating host in /etc/hosts:"
+    echo "Updating host in /etc/hosts:  ${host_name}"
     echo "$host_entry" | sudo tee -a /etc/hosts > /dev/null
 fi
 
 echo "docker-compose up -d"
-docker-compose up -d --remove orphans
+docker-compose up -d --remove-orphans
+
+echo "=================================================="
+echo ""
+
+echo "Wow no one thought you could do, but you did."
+echo "Everyone is so proud of you."
+echo "Go here to see your new site: http://${host_name}"
+
+echo ""
+echo "=================================================="
