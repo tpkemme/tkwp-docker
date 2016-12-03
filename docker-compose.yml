@@ -1,0 +1,56 @@
+version: "2"
+
+services:
+  mariadb:
+    image: wodby/wordpress-mariadb
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: tylerkemme
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+#    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci # The simple way to override the mariadb config.
+    volumes:
+      - ./docker-runtime/mariadb:/var/lib/mysql
+#      - ./docker-runtime/mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
+
+  php:
+    image: wodby/wordpress-php
+    environment:
+      ## CHANGE THIS TO YOUR DIRECTORY NAME
+      PHP_SITE_NAME: tkwp-docker
+      ## MAKE SURE THIS PORT NUMBER IS UNIQUE!
+      ## IF YOU CHANGE THIS NUMBER CHANGE IT BELOW FOR NGINX
+      PHP_HOST_NAME: localhost:9000
+
+    # PHP_DOCROOT: public # Relative path inside the /var/www/html/ directory.
+      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
+      PHP_XDEBUG_ENABLED: 0 # Set 1 to enable.
+    volumes:
+      - ./:/var/www/html
+
+  nginx:
+    image: wodby/wordpress-nginx
+    environment:
+      NGINX_SERVER_NAME: localhost
+      NGINX_UPSTREAM_NAME: php
+    # NGINX_DOCROOT: public # Relative path inside the /var/www/html/ directory.
+    volumes_from:
+      - php
+    ports:
+      - "9000:80"
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress
+      PHP_UPLOAD_MAX_FILESIZE: 1G
+      PHP_MAX_INPUT_VARS: 1G
+    ports:
+     - "9001:80"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "9002:9025"
