@@ -20,7 +20,7 @@ services:
       PHP_SITE_NAME: tkwp-docker
       ## MAKE SURE THIS PORT NUMBER IS UNIQUE!
       ## IF YOU CHANGE THIS NUMBER CHANGE IT BELOW FOR NGINX
-      PHP_HOST_NAME: localhost:9000
+      PHP_HOST_NAME: localhost:8000
 
     # PHP_DOCROOT: public # Relative path inside the /var/www/html/ directory.
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
@@ -37,7 +37,7 @@ services:
     volumes_from:
       - php
     ports:
-      - "9000:80"
+      - "8000:80"
 
   pma:
     image: phpmyadmin/phpmyadmin
@@ -48,9 +48,9 @@ services:
       PHP_UPLOAD_MAX_FILESIZE: 1G
       PHP_MAX_INPUT_VARS: 1G
     ports:
-     - "9001:80"
+     - "8001:80"
 
   mailhog:
     image: mailhog/mailhog
     ports:
-      - "9002:9025"
+      - "8002:8025"

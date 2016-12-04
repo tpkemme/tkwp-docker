@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # insert/update hosts entry
-ip_address="127.0.0.1:9000"
+ip_address="127.0.0.1:8000"
 
 host_name=${PWD##*/}.dev
 # find existing instances in the host file and save the line numbers
@@ -29,7 +29,7 @@ docker-compose up -d --remove-orphans
 echo "=================================================="
 echo ""
 
-echo "Wow no one thought you could do, but you did."
+echo "Wow no one thought you could do it, but you did."
 echo "Everyone is so proud of you."
 echo "Go here to see your new site: http://${host_name}"
 
